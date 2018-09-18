@@ -3,13 +3,13 @@
 
 # install depends for detection; check for lshw, install if not
 if [ $(dpkg-query -W -f='${Status}' lshw 2>/dev/null | grep -c "ok installed") -eq 0 ]; then
-    echo "Installing required dependencies to run install-lit..."    
+    echo "Installing required dependencies to run install-golang..."    
     apt-get install lshw -y
 fi
 
 # install depends for detection; check for git, install if not
 if [ $(dpkg-query -W -f='${Status}' git 2>/dev/null | grep -c "ok installed") -eq 0 ]; then
-    echo "Installing required dependencies to run install-lit..."    
+    echo "Installing required dependencies to run install-golang..."    
     apt-get install git -y
 fi
 
@@ -17,7 +17,7 @@ user=$(logname)
 userhome='/home/'$user
 SYSTEM="$(lshw -short | grep system | awk -F'[: ]+' '{print $3" "$4" "$5" "$6" "$7" "$8" "$9" "$10" "$11}' | awk '{print $1}')"
 
-# download and install new version of golang, lit and lit-af
+# download and install new version of golang
 function install_go { 
     # go home first
     cd "$userhome"/
@@ -57,5 +57,4 @@ function install_go {
     # display go version
     go version
 }
-
 install_go
