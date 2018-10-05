@@ -24,9 +24,6 @@
 |  model 3 B |        HDMI off, LEDs off        |   230 mA (1.2W)   |
 |  model 3 B | HDMI off, LEDs off, onboard WiFi |   250 mA (1.2W)   |
 
-
------------------------------------------
-
 ### Parts List
 
 | Parts                                                        | Price      | Link                                                                            |
@@ -40,6 +37,75 @@ Seagate Expansion 8TB Desktop External Hard Drive USB 3.0                  | $13
 Seagate Expansion 8TB Desktop External Hard Drive USB 3.0                  | $139.00 USD | https://www.amazon.com/Seagate-Expansion-Desktop-External-STEB8000100/dp/B01HAPGEIE/           |
 | Transcend USB 3.0 SDHC / SDXC / microSDHC / SDXC Card Reader | $9.23 USD  | https://www.amazon.com/Transcend-microSDHC-Reader-TS-RDF5K-Black/dp/B009D79VH4/ |
 | OPTIONAL: Zebra Black Ice Case for Raspberry Pi by C4Labs   | $14.95 USD | https://www.amazon.com/Zebra-Black-Case-Raspberry-C4labs/dp/B00M6G9YBM/         |
+
+## Installing Raspbian Stretch Lite
+
+`NOTE:` The steps provided below produce a “headless” server... meaning we will not be using a GUI to configure Hyperspace or check to see how things are running. In fact, once the server is set up, you will only interact with it using command line calls over `SSH`. The idea is to have this hosting node be simple, low-power, with optimized memory usage and something that “just runs” in your basement, closet, etc.
+
+>Raspbian is a free operating system based on Debian, optimised for the Raspberry Pi hardware. Raspbian comes with over 35,000 packages: precompiled software bundled in a nice format for easy installation on your Raspberry Pi. `https://www.raspberrypi.org/documentation/raspbian/`
+
+Download the latest stable version of [Raspbian Stretch Lite](https://www.raspberrypi.org/downloads/raspbian/).
+
+#### Install Raspbian Stretch Lite to your microSD card
+* [Installing Operating System Images Using Windows](https://www.raspberrypi.org/documentation/installation/installing-images/windows.md)
+* [Installing Operating System Images Using Mac OS](https://www.raspberrypi.org/documentation/installation/installing-images/mac.md)
+* [Installing Operating System Images Using Linux](https://www.raspberrypi.org/documentation/installation/installing-images/linux.md)
+
+#### Enable SSH Server on first Boot
+* [Step 3. Enable SSH by placing a file named "ssh" (without any extension) onto the boot partition of the microSD card](https://hackernoon.com/raspberry-pi-headless-install-462ccabd75d0) 
+
+#### `Optional:` Enable Wireless Connection on first Boot
+Create a new text file named `wpa_supplicant.conf` on the boot partition of the microSD card, this will hold the network information.
+
+Edit the newly created file, adjusting for the name of your country code, network name and network password.
+
+```
+country=US
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network={
+    ssid="NETWORK-NAME"
+    psk="NETWORK-PASSWORD"
+}
+```
+Please safely remove the USB Card Reader / MicroSD card as to ensure the data is not corrupted.
+
+### Inital Setup of Raspberry Pi
+#### Boot your Raspberry Pi
+Open a web browser page and navigate to your router page and identify the IP address of the freshly powered on Raspberry Pi. In my case the IP address is `192.168.1.11`, please make note of your Raspberry Pi's IP address as we will need to use it to login via `SSH`.
+
+I like to access my Raspberry Pi through an `SSH` session on my Windows PC using `Git Bash` which is included in the Windows [download](https://git-scm.com/downloads) of `Git`.  
+`Git download link: https://git-scm.com/downloads`  
+
+#### Download, install system updates and clean up
+```
+sudo apt-get update ; sudo apt-get upgrade -y ; sudo apt-get autoremove -y ; sudo apt-get autoclean -y
+```
+
+#### Download and install recommended packages
+* [ufw](https://help.ubuntu.com/community/UFW)
+> `ufw` provides a user friendly way to create an IPv4 or IPv6 host-based firewall
+* [Fail2Ban](https://www.fail2ban.org/wiki/index.php/Main_Page)
+> Fail2ban is a daemon that can be run on your server to dynamically block clients that fail to authenticate correctly with your services repeatedly. This can help mitigate the affect of brute force attacks and illegitimate users of your services like `SSH`.
+* Git
+```
+sudo apt-get install ufw fail2ban git -y
+```
+
+#### Configure your Raspberry Pi
+```
+pi@raspberrypi:~ $ sudo raspi-config
+```
+```
+2.) [1] Change User Password        # change password for current user
+3.) [2] Network Options               # configure network settings
+	> [N1] Change Hostname                # set the visible hostname for this Pi on a network
+4.) [7] Advanced Options     
+	> [A1] Expand Filesystem                # expand filesystem 
+```
+`<Finish>` and choose to reboot the Raspberry Pi.
+
 
 -----------------------------------------
 
