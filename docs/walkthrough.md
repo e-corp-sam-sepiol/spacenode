@@ -659,7 +659,7 @@ Exact:               2000000000000000000000000000 H
 Estimated Fee:       30 mS / KB
 ```
 
-**Announce with a Dynamic DNS name (from your no-ip.com account, etc)**
+**OPTION 1: Announce with a Dynamic DNS name (from your no-ip.com account, etc)**
 ```
 ./hsc host announce ecorphosting.ddns.net:5582
 ```
@@ -670,7 +670,7 @@ To revert this, run:
         hsc host config acceptingcontracts false
 ```
 
-**Announce with your `WAN` `IP` address**
+**OPTION 2: Announce with your `WAN` `IP` address**
 * Grab your `WAN` `IP` address
 ```
 curl ipinfo.io/ip
