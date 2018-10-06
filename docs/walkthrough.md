@@ -702,8 +702,8 @@ Host info:
         Max Duration: 25 Weeks
 
         Accepting Contracts:  Yes
-        Anticipated Revenue:  0 H
-        Locked Collateral:    0 H
+        Anticipated Revenue:  300 mS
+        Locked Collateral:    12.97 S
         Revenue:              0 H
 
 Storage Folders:
