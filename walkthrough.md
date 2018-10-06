@@ -144,3 +144,9 @@ Seagate Expansion 8TB Desktop External Hard Drive USB 3.0                  | $13
 
 -----------------------------------------
 # Updating Hyperspace
+
+
+-----------------------------------------
+# Resources
+SlickDeals - Hard Drive Deals  
+`https://slickdeals.net/forums/filtered/?f=9&intagid[]=300&icid=filtered_user`
