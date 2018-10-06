@@ -294,7 +294,7 @@ Remember to change your commands to reflect the name of your External Hard Drive
 
 The hard drive must have it's partitions consolidated into a single partition, as well as creating a new filesystem native to Linux for the External Hard Drive (`ext4`)  
 
-`NOTE` If you only find a single partition such as `sda1`, and no other partitions such as `sda2`, you can simply use this command and skip the **Configure mounting of External Hard Drive** section.
+`NOTE` If you only find a single partition such as `sda1`, and no other partitions such as `sda2`, you can simply use this command and skip to the **Configure mounting of External Hard Drive** section.
 ```
 sudo mkfs.ext4 /dev/sda1 -L storage
 ```
