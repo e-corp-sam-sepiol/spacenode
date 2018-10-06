@@ -223,6 +223,50 @@ iface default inet dhcp
 ```
 `CTRL+X to save/close document` 
 
+#### Configure firewall `ufw`
+Automatically deny incoming traffic
+```
+sudo ufw default deny incoming
+```
+Automatically allow outgoing traffic
+```
+sudo ufw default allow outgoing
+```
+Grab your `IP` range
+```
+ip -o -f inet addr show | awk '/scope global/{sub(/[^.]+\//,"0/",$4);print $4}' | awk 'NR==1{print $1}'
+```
+This firewall rule prevents any host outside of your `LAN` to `SSH` into your Raspberry Pi. Replace `192.168.1.0/24` with the `IP` range given to you by the command above. `192.168.1.0/24` happens to be my `IP` range, yours may be different. 
+```
+sudo ufw allow from 192.168.1.0/24 to any port 22 comment 'allow SSH from local LAN'
+```
+Open a port for Hyperspace Hosting
+```
+sudo ufw allow 5582 comment 'allow hyperspace hosting'
+```
+Enable the firewall settings
+```
+sudo ufw --force enable
+```
+Install `ufw` as a service 
+```
+sudo systemctl enable ufw
+```
+Check firewall status
+```
+sudo ufw status
+```
+```
+Status: active
+
+To                         Action      From
+--                         ------      ----
+22                         ALLOW       192.168.1.0/24             # allow SSH from local LAN
+5582                       ALLOW       Anywhere                   # allow hyperspace hosting
+5582 (v6)                  ALLOW       Anywhere (v6)              # allow hyperspace hosting
+```
+
+
 #### Configure External Hard Drive
 If you have not plugged in your External Hard Drive to power and then into your Raspberry Pi's USB interface, this is the time to do so. Please use an External Hard Drive in an enclosure with it's own power source, avoid External Hard Drives that are USB powered. This is important for power stability of your Raspberry Pi.
 
