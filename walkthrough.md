@@ -450,9 +450,155 @@ cd ; cd go/bin/
 ```
 
 ### Starting Hyperspace
-`NOTE` If you intend on running multiple hosts, you will need to use the `--host-addr :5583`... `5584`, `5885`, etc. Hyperspace's hosting port defaults to `5882`. If this is your first host, you don't need to worry
+`NOTE` If you intend on running multiple hosts, you will need to use the `--host-addr :5583`... `:5584`, `:5885`, etc. Hyperspace's hosting port defaults to `:5882`. If this is your first host, you don't need to worry.
 
+Start Hyperspace Daemon and send to the background
+```
+~/go/bin $ ./hsd &
+```
+```
+Hyperspace Daemon v0.2.0
+Git Revision 76f89464b
+Loading...
+(0/6) Loading hsd...
+(1/6) Loading gateway...
+(2/6) Loading consensus...
+(3/6) Loading transaction pool...
+(4/6) Loading wallet...
+(5/6) Loading host...
+(6/6) Loading renter...
+Finished loading in 1.7456555150000002 seconds
+```
+`[ENTER]` to get your command prompt back
 
+It's important to note that the blockchain will take some time to sync, I recommend allowing the Pi some time to sync before attempting to scan the blockchain for `tx`'s when you load a wallet. The blockchain size is about `~300MB` on `10/5/2018`. 
+
+### Configure Hyperspace
+
+When you are ready to create a new wallet for your Raspberry Pi make sure that you are in your `$GOPATH/bin/`
+```
+cd ; cd go/bin/
+```
+Initalize a new wallet for Hyperspace
+```
+./hsc wallet init
+```
+`PLEASE TAKE NOTE OF THE SEED GIVEN TO YOU, THIS WILL ENABLE YOU TO RESTORE THIS WALLET IF YOU NEED TO`  
+
+Next unlock the newly created wallet. **Use your seed as the password to unlock the wallet for the first time.**
+```
+./hsc wallet unlock
+```
+
+Change the wallet password
+```
+./hsc wallet change-password
+```
+
+Generate a new recieve address for your Hyperspace wallet
+```
+./hsc wallet new-address
+```
+
+Send `2,000` `SPACE` to the address created, this will send `2,000` `SPACE` to your Raspberry Pi's wallet. This is the amount needed to host on Hyperspace. If you are in need of `SPACE` to host, please contact @mark or @Yanlin on the Hyperspace Discord.  
+
+You will need to wait until the `2,000` `SPACE` balance is confirmed on your Raspberry Pi wallet before you can start hosting, the average time it takes to do this is about 10 minutes, however you may find blocks may take longer to find some times. 
+
+You have the option to configure your hosting options shown below
+* `mindownloadbandwidthprice` = The price that a renter has to pay when downloading data from the host.
+* `minstorageprice` = The price that a renter has to pay to store files with the host.
+* `minuploadbandwidthprice` = The price that a renter has to pay to store files with the host.
+* `mincontractprice` = The price that a renter has to pay to create a contract with the host. The payment is intended to cover transaction fees for the file contract revision and the storage proof that the host will be submitting to the blockchain.
+
+#### View Hyperspace Hosting Configuration Help
+```
+./hsc host config -h
+```
+#### Example Commands
+Set the download bandwidth price to `200` `SPACE` per/TB
+```
+./hsc host config mindownloadbandwidthprice 200S
+```
+Set the upload bandwidth price to `200` `SPACE` per/TB
+```
+./hsc host config minuploadbandwidthprice 200S
+```
+Set the storage price to `100 SPACE`  
+```
+./hsc host config minstorageprice 100S
+```
+Set the contract price to `150 mS`
+```
+./hsc host config mincontractprice 150mS
+```
+
+**Once you have configured your Hyperspace hosting options and are ready to move on to dedicating storage space for hosting...**
+
+Check the available space on the mounted External Hard Drive
+```
+df -h
+```
+```
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/root        59G  2.0G   55G   4% /
+devtmpfs        460M     0  460M   0% /dev
+tmpfs           464M     0  464M   0% /dev/shm
+tmpfs           464M   30M  435M   7% /run
+tmpfs           5.0M  4.0K  5.0M   1% /run/lock
+tmpfs           464M     0  464M   0% /sys/fs/cgroup
+/dev/mmcblk0p1   43M   22M   21M  52% /boot
+tmpfs            93M     0   93M   0% /run/user/1000
+/dev/sda1       6.6T   89M  6.3T   1% /home/pi/storage
+```
+Add the location `/home/pi/storage` to Hyperspace hosting with an allocated size that reflects the size available on your External Hard Drive
+```
+./hsc host folder add /home/pi/storage 6.3TB
+```
+`Added folder /home/pi/storage`  
+
+Check your hosting settings
+```
+./hsc host
+```
+```
+Host info:
+        Connectability Status: Host is not connectable (re-checks every few minutes).
+
+        Storage:      6.2999 TB (0 B used)
+        Price:        100 S / TB / Month
+        Max Duration: 25 Weeks
+
+        Accepting Contracts:  No
+        Anticipated Revenue:  0 H
+        Locked Collateral:    0 H
+        Revenue:              0 H
+
+Warning:
+        Your wallet is locked. You must unlock your wallet for the host to function properly.
+
+Storage Folders:
+    Used    Capacity     % Used    Path
+    0 B     6.2999 TB    0.00      /home/pi/storage
+```
+
+### Port Forward port `5582` on your Raspberry Pi 
+Access your router's web page through a web browser, the `IP` address is commonly similar to `192.168.1.1` for most home routers
+
+Access the port forwarding section of your router's firmware, create a new port forwarding rule for the `IP` address that belongs to your Raspberry Pi which you set as `static` before. Make sure port `5582 TCP/UDP` is forwarded, saved and applied. 
+
+Once your port forwarding has been configured you can use tools like [CanYouSeeMe.org](http://canyouseeme.org/) and check for port `5582`. If your port forwarding has been done correctly, the CanYouSeeMe service should return `Success: I can see your service on XX.XXX.XX.XX on port (5582)`.
+
+### OPTIONAL: Setup DynamicDNS (no-ip.com, etc. for hosting)
+Many modern routers contain the ability to setup a Dynamic DNS in the router firmware page, allowing you to resolve your `IP` address to a string of characters. 
+
+<p align="center">
+  <img src="https://i.imgur.com/tn2rLS3.png">
+</p>
+
+### Start Hosting
+To begin hosting you need to announce your host to the network, which it will then begin forming contracts with renters and automatically locking collateral and managing contracts in the background.
+```
+./hsc host announce
 
 
 
