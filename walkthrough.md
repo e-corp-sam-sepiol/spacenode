@@ -597,8 +597,21 @@ Many modern routers contain the ability to setup a Dynamic DNS in the router fir
 
 ### Start Hosting
 To begin hosting you need to announce your host to the network, which it will then begin forming contracts with renters and automatically locking collateral and managing contracts in the background.
+
+Announce with a Dynamic DNS name (from your no-ip.com account, etc)
 ```
-./hsc host announce
+./hsc host announce ecorphosting.ddns.net:5582
+```
+
+Announce with your `IP` address
+* Grab your `WAN` `IP` address
+```
+curl ipinfo.io/ip
+```
+* Announce using your `IP` address displayed from the `curl` command
+```
+./hsc host announce XX.XXX.XX.XX:5582
+```
 
 
 
