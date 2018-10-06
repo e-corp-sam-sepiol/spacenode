@@ -544,9 +544,9 @@ Generate a new recieve address for your Hyperspace wallet
 ./hsc wallet new-address
 ```
 
-Send `2,000` `SPACE` to the address created, this will send `2,000` `SPACE` to your Raspberry Pi's wallet. This is the amount needed to host on Hyperspace. If you are in need of `SPACE` to host, please contact @mark or @Yanlin on the Hyperspace Discord.  
+**Send `2,000` `SPACE` to the address created, this will send `2,000` `SPACE` to your Raspberry Pi's wallet. This is the amount needed to host on Hyperspace. If you are in need of `SPACE` to host, please contact @mark or @Yanlin on the Hyperspace Discord.**  
 
-You will need to wait until the `2,000` `SPACE` balance is confirmed on your Raspberry Pi wallet before you can start hosting, the average time it takes to do this is about 10 minutes, however you may find blocks may take longer to find some times. 
+**You will need to wait until the `2,000` `SPACE` balance is confirmed on your Raspberry Pi wallet before you can start hosting, the average time it takes to do this is about 10 minutes, however you may find blocks may take longer to find some times.** 
 
 You have the option to configure your hosting options shown below
 * `mindownloadbandwidthprice` = The price that a renter has to pay when downloading data from the host.
