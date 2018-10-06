@@ -690,6 +690,8 @@ To revert this, run:
         hsc host config acceptingcontracts false
 ```
 
+-----------------------------------------
+
 #### Check hosting status
 This command should reflect a working host after about a half an hour if you have properly port forwarded, using canyouseeme.org to confirm the port has been opened. 
 ```
