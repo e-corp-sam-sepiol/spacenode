@@ -463,9 +463,7 @@ Check the version of `golang` installed
 ```
 go version
 ```
-```
-go version go1.10.3 linux/arm
-```  
+`go version go1.10.3 linux/arm`  
 
 ### Download and compile Hyperspace from source
 ```
