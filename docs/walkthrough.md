@@ -695,7 +695,7 @@ This command should reflect a working host after about a half an hour if you hav
 ```
 ```
 Host info:
-        Connectability Status: Host is not connectable (re-checks every few minutes).
+        Connectability Status: Host appears to be working.
 
         Storage:      6.2999 TB (0 B used)
         Price:        100 S / TB / Month
