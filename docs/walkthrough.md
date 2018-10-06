@@ -659,6 +659,8 @@ Exact:               2000000000000000000000000000 H
 Estimated Fee:       30 mS / KB
 ```
 
+-----------------------------------------
+
 **OPTION 1: Announce with a Dynamic DNS name (from your no-ip.com account, etc)**
 ```
 ./hsc host announce ecorphosting.ddns.net:5582
@@ -669,6 +671,8 @@ The host has also been configured to accept contracts.
 To revert this, run:
         hsc host config acceptingcontracts false
 ```
+
+-----------------------------------------
 
 **OPTION 2: Announce with your `WAN` `IP` address**
 * Grab your `WAN` `IP` address
