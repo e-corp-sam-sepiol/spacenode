@@ -544,9 +544,13 @@ Generate a new recieve address for your Hyperspace wallet
 ./hsc wallet new-address
 ```
 
+-----------------------------------------
+
 **Send `2,000` `SPACE` to the address created, this will send `2,000` `SPACE` to your Raspberry Pi's wallet. This is the amount needed to host on Hyperspace. If you are in need of `SPACE` to host, please contact @mark or @Yanlin on the Hyperspace Discord.**  
 
 **You will need to wait until the `2,000` `SPACE` balance is confirmed on your Raspberry Pi wallet before you can start hosting, the average time it takes to do this is about 10 minutes, however you may find blocks may take longer to find some times.** 
+
+-----------------------------------------
 
 You have the option to configure your hosting options shown below
 * `mindownloadbandwidthprice` = The price that a renter has to pay when downloading data from the host.
@@ -642,12 +646,33 @@ Many modern routers contain the ability to setup a Dynamic DNS in the router fir
 ### Start Hosting
 To begin hosting you need to announce your host to the network, which it will then begin forming contracts with renters and automatically locking collateral and managing contracts in the background.
 
-Announce with a Dynamic DNS name (from your no-ip.com account, etc)
+Before announcing your host to the network, you have to ensure your wallet is `unlocked` and holds a balance of `2,000` `SPACE` or more to host.
+```
+./hsc wallet
+```
+```
+Wallet status:
+Encrypted, Unlocked
+Height:              10475
+Confirmed Balance:   2 KS
+Unconfirmed Delta:  +0 H
+Exact:               2000000000000000000000000000 H
+
+Estimated Fee:       30 mS / KB
+```
+
+**Announce with a Dynamic DNS name (from your no-ip.com account, etc)**
 ```
 ./hsc host announce ecorphosting.ddns.net:5582
 ```
+```
+Host announcement submitted to network.
+The host has also been configured to accept contracts.
+To revert this, run:
+        hsc host config acceptingcontracts false
+```
 
-Announce with your `IP` address
+**Announce with your `WAN` `IP` address**
 * Grab your `WAN` `IP` address
 ```
 curl ipinfo.io/ip
@@ -656,7 +681,37 @@ curl ipinfo.io/ip
 ```
 ./hsc host announce XX.XXX.XX.XX:5582
 ```
+```
+Host announcement submitted to network.
+The host has also been configured to accept contracts.
+To revert this, run:
+        hsc host config acceptingcontracts false
+```
 
+#### Check hosting status
+This command should reflect a working host after about a half an hour if you have properly port forwarded, using canyouseeme.org to confirm the port has been opened. 
+```
+./hsc host
+```
+```
+Host info:
+        Connectability Status: Host is not connectable (re-checks every few minutes).
+
+        Storage:      6.2999 TB (0 B used)
+        Price:        100 S / TB / Month
+        Max Duration: 25 Weeks
+
+        Accepting Contracts:  Yes
+        Anticipated Revenue:  0 H
+        Locked Collateral:    0 H
+        Revenue:              0 H
+
+Storage Folders:
+    Used    Capacity     % Used    Path
+    0 B     6.2999 TB    0.00      /home/pi/storage
+```
+
+### You're hosting on Hyperspace!
 
 
 -----------------------------------------
