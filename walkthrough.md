@@ -73,10 +73,27 @@ Please safely remove the USB Card Reader / MicroSD card as to ensure the data is
 
 ### Inital Setup of Raspberry Pi
 #### Boot your Raspberry Pi
-Open a web browser page and navigate to your router page and identify the IP address of the freshly powered on Raspberry Pi. In my case the IP address is `192.168.1.11`, please make note of your Raspberry Pi's IP address as we will need to use it to login via `SSH`.
+Open a web browser page and navigate to your router page and identify the IP address of the freshly powered on Raspberry Pi. In my case the IP address is `192.168.1.10`, please make note of your Raspberry Pi's IP address as we will need to use it to login via `SSH`.
 
 I like to access my Raspberry Pi through an `SSH` session on my Windows PC using `Git Bash` which is included in the Windows [download](https://git-scm.com/downloads) of `Git`.  
 `Git download link: https://git-scm.com/downloads`  
+
+#### Log into your Raspberry Pi
+Open `Git Bash` or your default terminal application and enter `SSH`, the `IP` address of your Pi and `-l pi` for it's login name.
+```
+ssh 192.168.1.10 -l pi
+```
+```
+$ ssh -h
+ssh: unknown option -- h
+usage: ssh [-46AaCfGgKkMNnqsTtVvXxYy] [-b bind_address] [-c cipher_spec]
+           [-D [bind_address:]port] [-E log_file] [-e escape_char]
+           [-F configfile] [-I pkcs11] [-i identity_file]
+           [-J [user@]host[:port]] [-L address] [-l login_name] [-m mac_spec]
+           [-O ctl_cmd] [-o option] [-p port] [-Q query_option] [-R address]
+           [-S ctl_path] [-W host:port] [-w local_tun[:remote_tun]]
+           [user@]hostname [command]
+```
 
 #### Download, install system updates and clean up
 ```
@@ -105,6 +122,338 @@ pi@raspberrypi:~ $ sudo raspi-config
 	> [A1] Expand Filesystem                # expand filesystem 
 ```
 `<Finish>` and choose to reboot the Raspberry Pi.
+
+Wait a minute, then attempt to log back into your Raspberry Pi via `SSH`
+```
+ssh 192.168.1.10 -l pi
+```
+Set a static IP address for your Raspberry Pi. You don't want the `IP` address of your Hyperspace host to change unknowingly, and no longer have a reachable host. There are two options to choose here, if you are using the wireless network interface please follow the corresponding option.
+
+#### Wired Interface
+```
+sudo nano /etc/dhcpcd.conf
+```
+Scroll down until you find the `# Example static IP Configuration` section
+```
+# A ServerID is required by RFC2131.
+require dhcp_server_identifier
+
+# Generate Stable Private IPv6 Addresses instead of hardware based ones
+slaac private
+
+# Example static IP configuration:
+interface eth0
+static ip_address=192.168.1.10/24
+#static ip6_address=fd51:42f8:caae:d92e::ff/64
+static routers=192.168.1.1
+static domain_name_servers=192.168.1.1 8.8.8.8 
+```
+`CTRL+X to save/close document`  
+
+-----------------------------------------
+
+Lines that are preceeded with `#` are comments.  
+
+Remove the `#` marks to change the line from a comment to a configuration.  
+
+Enter the IP address of your Raspberry Pi, the `IP` address of your router, and the `IP` address of the doman name servers you wish to use.  
+
+Leave the `ip6_address=` line as a comment, we don't want to use `IPv6` in this case.
+* `interface eth0` - `eth0` is the name of the Raspberry Pi's wired interface  
+* `static ip_address=192.168.1.10/24` - configure this line to reflect the `IP` address of your Raspberry Pi  
+* `static routers=192.168.1.1` - configure this line to reflect the `IP` address of your router  
+* `static domain_name_servers=192.168.1.1 8.8.8.8` - configure this line to reflect the `IP` address of your router, and the `IP` of Google's DNS server  
+
+-----------------------------------------
+
+You can find this information by using the following command
+```
+pi@raspberrypi:~ $ ifconfig
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.10  netmask 255.255.255.0  broadcast 192.168.1.255
+        ether b8:27:eb:0a:00:00  txqueuelen 1000  (Ethernet)
+        RX packets 149166  bytes 13317229 (12.7 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 246262  bytes 314148056 (299.5 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 76  bytes 10503 (10.2 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 76  bytes 10503 (10.2 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+```
+You can find the address of your router by using the following command
+```
+ip route | grep default
+```
+```
+default via 192.168.1.1 dev eth0 src 192.168.1.10 metric 202
+```
+#### Wireless Interface
+```
+sudo nano /etc/network/interfaces
+```
+Configure your `/etc/network/interfaces` file to reflect the `IP` address of your Raspberry Pi, the `netmask` and the `gateway` (the `IP` of your router) so that if appears similar to the example below. Your file will likely be empty when you first open it. 
+```
+# interfaces(5) file used by ifup(8) and ifdown(8)
+
+# Please note that this file is written to be used with dhcpcd
+# For static IP, consult /etc/dhcpcd.conf and 'man dhcpcd.conf'
+
+# Include files from /etc/network/interfaces.d:
+source-directory /etc/network/interfaces.d
+
+auto lo
+iface lo inet loopback
+iface eth0 inet dhcp
+allow-hotplug wlan0
+
+iface wlan0 inet manual
+wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+
+iface home inet static
+address 192.168.1.10
+netmask 255.255.255.0
+gateway 192.168.1.1
+
+iface default inet dhcp
+```
+`CTRL+X to save/close document` 
+
+#### Configure External Hard Drive
+If you have not plugged in your External Hard Drive to power and then into your Raspberry Pi's USB interface, this is the time to do so. Please use an External Hard Drive in an enclosure with it's own power source, avoid External Hard Drives that are USB powered. This is important for power stability of your Raspberry Pi.
+
+In this example, a Seagate Expansion 8TB Desktop External Hard Drive USB 3.0 is being used.
+```
+sudo lsblk
+```
+```
+NAME        MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda           8:0    0  7.3T  0 disk
+├─sda1        8:1    0  128M  0 part
+└─sda2        8:2    0  7.3T  0 part
+mmcblk0     179:0    0 59.5G  0 disk
+├─mmcblk0p1 179:1    0 43.2M  0 part /boot
+└─mmcblk0p2 179:2    0 59.4G  0 part /
+```
+
+-----------------------------------------
+
+`sda` is the name of the External Hard Drive in this example  
+
+Remember to change your commands to reflect the name of your External Hard Drive  
+
+`sda1` and `sda2` are the two partitions that exist on the 8TB External Hard Drive  
+
+The hard drive must have it's partitions consolidated into a single partition, as well as creating a new filesystem native to Linux for the External Hard Drive (`ext4`)  
+
+`NOTE` If you only find a single partition such as `sda1`, and no other partitions such as `sda2`, you can simply use this command and skip the **Configure mounting of External Hard Drive** section.
+```
+sudo mkfs.ext4 /dev/sda1 -L storage
+```
+
+-----------------------------------------
+
+First we must remove the two partitions from this drive, and then create a partition we can use for hosting
+```
+sudo mkfs.ext4 /dev/sda -l untitled
+mke2fs 1.43.4 (31-Jan-2017)
+Found a gpt partition table in /dev/sda
+Proceed anyway? (y,N) y
+```
+We can check to ensure our changes were made
+```
+sudo lsblk
+```
+```
+NAME        MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda           8:0    0  7.3T  0 disk
+mmcblk0     179:0    0 59.5G  0 disk
+├─mmcblk0p1 179:1    0 43.2M  0 part /boot
+└─mmcblk0p2 179:2    0 59.4G  0 part /
+```
+Great! Now we can create our partition for hosting
+
+```
+sudo parted /dev/sda
+```
+Create a new GPT disklabel, i.e partition table
+```
+(parted) mklabel gpt
+```
+Set the default unit to TB
+```
+(parted) unit TB
+```
+Create a partition that matches the size of your External Hard Drive
+```
+(parted) mkpart primary 0.00TB 7.30TB
+```
+Print the current partitions
+```
+(parted) print
+```
+```
+Model: Seagate Expansion Desk (scsi)
+Disk /dev/sda: 8002GB
+Sector size (logical/physical): 512B/4096B
+Partition Table: gpt
+Disk Flags:
+
+Number  Start   End     Size    File system  Name     Flags
+ 1      1049kB  7300GB  7300GB               primary
+```
+Success! There is a single partition on the External Hard Drive, let's format it. But first, exit `parted`
+```
+(parted) quit
+```
+Check the current block devices, and their partition numbers
+```
+sudo lsblk
+```
+```
+NAME        MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda           8:0    0  7.3T  0 disk
+└─sda1        8:1    0  6.7T  0 part
+mmcblk0     179:0    0 59.5G  0 disk
+├─mmcblk0p1 179:1    0 43.2M  0 part /boot
+└─mmcblk0p2 179:2    0 59.4G  0 part /
+```
+Create a new `ext4` filesystem on `sda1`
+```
+sudo mkfs.ext4 /dev/sda1 -L storage
+```
+```
+mke2fs 1.43.4 (31-Jan-2017)
+Creating filesystem with 1782226432 4k blocks and 222781440 inodes
+Filesystem UUID: fc1c8015-be6d-484a-8e24-3fd535d8f283
+Superblock backups stored on blocks:
+        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
+        4096000, 7962624, 11239424, 20480000, 23887872, 71663616, 78675968,
+        102400000, 214990848, 512000000, 550731776, 644972544
+
+Allocating group tables: done
+Writing inode tables: done
+Creating journal (262144 blocks): done
+Writing superblocks and filesystem accounting information: done
+```
+
+#### Configure mounting of External Hard Drive
+```
+sudo blkid
+```
+Note the `UUID` of the External Hard Drive = `fc1c8015-be6d-484a-8e24-3fd535d8f283`
+```
+/dev/mmcblk0p1: LABEL="boot" UUID="3725-1C05" TYPE="vfat" PARTUUID="cc9730ad-01"
+/dev/mmcblk0p2: LABEL="rootfs" UUID="fd695ef5-f047-44bd-b159-2a78c53af20a" TYPE="ext4" PARTUUID="cc9730ad-02"
+/dev/mmcblk0: PTUUID="cc9730ad" PTTYPE="dos"
+/dev/sda1: LABEL="storage" UUID="fc1c8015-be6d-484a-8e24-3fd535d8f283" TYPE="ext4" PARTLABEL="primary" PARTUUID="c613bd10-2f70-49a4-966d-4faa8bd140f7"
+```
+Configure the `/etc/fstab` file for auto-mounting on boot
+```
+sudo nano /etc/fstab
+```
+```
+proc            /proc           proc    defaults          0       0
+PARTUUID=cc9730ad-01  /boot           vfat    defaults          0       2
+PARTUUID=cc9730ad-02  /               ext4    defaults,noatime  0       1
+# a swapfile is not a swap partition, no line here
+#   use  dphys-swapfile swap[on|off]  for that
+```
+Go to the bottom of the file and create a new line, and enter this information so it reflects your External Hard Drive's `UUID` rather than the one being used in this guide. `UUID` are unique, if you format the drive the `UUID` will change. 
+
+`NOTE` Do not literally type `[TAB]` between each option, the `[TAB]` represents the act of the user hitting their tab key.
+```
+proc            /proc           proc    defaults          0       0
+PARTUUID=cc9730ad-01  /boot           vfat    defaults          0       2
+PARTUUID=cc9730ad-02  /               ext4    defaults,noatime  0       1
+# a swapfile is not a swap partition, no line here
+#   use  dphys-swapfile swap[on|off]  for that
+
+UUID=fc1c8015-be6d-484a-8e24-3fd535d8f283[TAB]/home/pi/storage[TAB]ext4[TAB]defaults,noatime[TAB]0[TAB]0
+```
+`CTRL+X to save/close document`
+
+#### Create the mount point for the External Hard Drive, and mount the Hard Drive
+```
+mkdir storage
+```
+```
+sudo mount -a
+```
+Now modify the permissions of the `storage` folder to be accessable by every user
+```
+sudo chmod 777 storage
+```
+
+### Installing `golang 1.10`
+Download `golang` for `ARM` CPU's 
+```
+curl -L -O https://dl.google.com/go/go1.10.3.linux-armv6l.tar.gz
+```
+Decompress the archive into the `/usr/local` folder
+```
+sudo tar -C /usr/local -xzf go1.10.3.linux-armv6l.tar.gz
+```
+Create a directory for your `$GOPATH`
+```
+mkdir go
+```
+Export environment variables to `.bashrc` and the current shell
+```
+echo 'export PATH=$PATH:/usr/local/go/bin' >> /home/pi/.bashrc
+```
+```
+echo 'export GOPATH=$HOME/go' >> /home/pi/.bashrc
+```
+```
+export GOPATH=$HOME/go  
+```
+```
+export PATH=$PATH:/usr/local/go/bin
+```
+Check the version of `golang` installed
+```
+go version
+```
+```
+go version go1.10.3 linux/arm
+```  
+
+### Download and compile Hyperspace from source
+```
+go get -u github.com/HyperspaceApp/Hyperspace/...
+```
+Change directories to the `$GOPATH/.../Hyperspace` folder
+```
+cd go/src/github.com/HyperspaceApp/Hyperspace/
+```
+Pull the latest changes to the code
+```
+git pull origin master
+```
+```
+From https://github.com/HyperspaceApp/Hyperspace
+ * branch                master     -> FETCH_HEAD
+Already up-to-date.
+```
+Build the new binaries
+```
+make release
+```
+Go back to your home directory, and then into your `$GOPATH/bin` to initalize Hyperspace
+```
+cd ; cd go/bin/
+```
+
+### Starting Hyperspace
+`NOTE` If you intend on running multiple hosts, you will need to use the `--host-addr :5583`... `5584`, `5885`, etc. Hyperspace's hosting port defaults to `5882`. If this is your first host, you don't need to worry
+
+
+
 
 
 -----------------------------------------
