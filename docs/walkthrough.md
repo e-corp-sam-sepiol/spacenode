@@ -715,6 +715,17 @@ Storage Folders:
 
 When you want to close your `SSH` session with your Pi, simply type `exit` and hit `enter`. This will ensure the backgrounded `hsd` process is not halted on disconnect. 
 
+### Donations
+If you found my guide helpful and want to donate...  
+<p align="center">
+  <img src="https://i.imgur.com/UVOuTsy.png">
+</p>
+
+Hyperspace Address   
+```
+543a9afc652bf892655db2f622505ab92be2a5ce251646367964c9ef4fdaf24c240fffb5f4e1
+```
+
 -----------------------------------------
 
 # Raspberry Pi Zero Wireless
