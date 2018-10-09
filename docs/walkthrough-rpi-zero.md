@@ -48,7 +48,7 @@ Download the latest stable version of [Raspbian Stretch Lite](https://www.raspbe
 #### Enable Wireless Connection on first Boot
 Create a new text file named `wpa_supplicant.conf` on the boot partition of the microSD card, this will hold the network information.
 
-Edit the newly created file, adjusting for the name of your country code, network name and network password.
+Edit the newly created file, adjusting for the name of your country code, network name and network password
 
 ```
 country=US
@@ -72,7 +72,7 @@ Open a web browser page and navigate to your router page and identify the IP add
 `Git download link: https://git-scm.com/downloads`  
 
 #### Log into your Raspberry Pi Zero Wireless
-Open `Git Bash` or your default terminal application and enter `SSH`, the `IP` address of your Pi and `-l pi` for it's login name.
+Open `Git Bash` or your default terminal application and enter `SSH`, the `IP` address of your Pi and `-l pi` for it's login name
 ```
 ssh 192.168.1.10 -l pi
 ```
@@ -120,13 +120,13 @@ Wait a minute, then attempt to log back into your Raspberry Pi Zero Wireless via
 ```
 ssh 192.168.1.10 -l pi
 ```
-Set a static IP address for your Raspberry Pi Zero Wireless. You don't want the `IP` address of your Hyperspace host to change unknowingly, and no longer have a reachable host.
+Set a static IP address for your Raspberry Pi Zero Wireless. You don't want the `IP` address of your Hyperspace host to change unknowingly, and no longer have a reachable host
 
 #### Wireless Interface
 ```
 sudo nano /etc/network/interfaces
 ```
-Configure your `/etc/network/interfaces` file to reflect the `IP` address of your Raspberry Pi, the `netmask` and the `gateway` (the `IP` of your router) so that if appears similar to the example below. Your file will likely be empty when you first open it. 
+Configure your `/etc/network/interfaces` file to reflect the `IP` address of your Raspberry Pi, the `netmask` and the `gateway` (the `IP` of your router) so that if appears similar to the example below. Your file will likely be empty when you first open it
 ```
 # interfaces(5) file used by ifup(8) and ifdown(8)
 
@@ -166,7 +166,7 @@ Grab your `IP` range
 ```
 ip -o -f inet addr show | awk '/scope global/{sub(/[^.]+\//,"0/",$4);print $4}' | awk 'NR==1{print $1}'
 ```
-This firewall rule prevents any host outside of your `LAN` to `SSH` into your Raspberry Pi Zero Wireless. Replace `192.168.1.0/24` with the `IP` range given to you by the command above. `192.168.1.0/24` happens to be my `IP` range, yours may be different. 
+This firewall rule prevents any host outside of your `LAN` to `SSH` into your Raspberry Pi Zero Wireless. Replace `192.168.1.0/24` with the `IP` range given to you by the command above. `192.168.1.0/24` happens to be my `IP` range, yours may be different  
 ```
 sudo ufw allow from 192.168.1.0/24 to any port 22 comment 'allow SSH from local LAN'
 ```
@@ -199,7 +199,7 @@ To                         Action      From
 #### Configure External Hard Drive
 If you have not plugged in your External Hard Drive to power and then into your Raspberry Pi Zero Wireless's micro USB interface via OTG cable, this is the time to do so. Please use an External Hard Drive in an enclosure with it's own power source, avoid External Hard Drives that are USB powered. This is important for power stability of your Raspberry Pi Zero Wireless.
 
-In this example, a Seagate Expansion 8TB Desktop External Hard Drive USB 3.0 is being used.
+In this example, a Seagate Expansion 8TB Desktop External Hard Drive USB 3.0 is being used  
 ```
 sudo lsblk
 ```
@@ -223,7 +223,7 @@ Remember to change your commands to reflect the name of your External Hard Drive
 
 The hard drive must have it's partitions consolidated into a single partition, as well as creating a new filesystem native to Linux for the External Hard Drive (`ext4`)  
 
-`NOTE` If you only find a single partition such as `sda1`, and no other partitions such as `sda2`, you can simply use this command and skip to the **Configure mounting of External Hard Drive** section.
+`NOTE` If you only find a single partition such as `sda1`, and no other partitions such as `sda2`, you can simply use this command and skip to the **Configure mounting of External Hard Drive** section  
 ```
 sudo mkfs.ext4 /dev/sda1 -L storage
 ```
@@ -338,7 +338,7 @@ PARTUUID=cc9730ad-02  /               ext4    defaults,noatime  0       1
 ```
 Go to the bottom of the file and create a new line, and enter this information so it reflects your External Hard Drive's `UUID` rather than the one being used in this guide. `UUID` are unique, if you format the drive the `UUID` will change. 
 
-`NOTE` Do not literally type `[TAB]` between each option, the `[TAB]` represents the act of the user hitting their tab key.
+`NOTE` Do not literally type `[TAB]` between each option, the `[TAB]` represents the act of the user hitting their tab key
 ```
 proc            /proc           proc    defaults          0       0
 PARTUUID=cc9730ad-01  /boot           vfat    defaults          0       2
@@ -571,9 +571,9 @@ Many modern routers contain the ability to setup a Dynamic DNS in the router fir
 </p>
 
 ### Start Hosting
-To begin hosting you need to announce your host to the network, which it will then begin forming contracts with renters and automatically locking collateral and managing contracts in the background.
+To begin hosting you need to announce your host to the network, which it will then begin forming contracts with renters and automatically locking collateral and managing contracts in the background
 
-Before announcing your host to the network, you have to ensure your wallet is `unlocked` and holds a balance of `2,000` `SPACE` or more to host.
+Before announcing your host to the network, you have to ensure your wallet is `unlocked` and holds a balance of `2,000` `SPACE` or more to host
 ```
 ./hsc wallet
 ```
@@ -622,7 +622,7 @@ To revert this, run:
 -----------------------------------------
 
 #### Check hosting status
-This command should reflect a working host after about a half an hour if you have properly port forwarded, using canyouseeme.org to confirm the port has been opened. 
+This command should reflect a working host after about a half an hour if you have properly port forwarded, using canyouseeme.org to confirm the port has been opened  
 ```
 ./hsc host
 ```
@@ -662,7 +662,7 @@ Hyperspace Address
 -----------------------------------------
 # Updating Hyperspace
 
-Change directories to the Hyperspace repository found in your `$GOPATH/src` folder. The compiled binaries are stored in the `$GOPATH/bin` folder.
+Change directories to the Hyperspace repository found in your `$GOPATH/src` folder. The compiled binaries are stored in the `$GOPATH/bin` folder  
 ```
 cd ; cd go/src/github.com/HyperspaceApp/Hyperspace/
 ```
