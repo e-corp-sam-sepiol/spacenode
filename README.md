@@ -8,7 +8,9 @@
 
 ### [Raspberry Pi Zero Wireless Walkthrough](https://github.com/e-corp-sam-sepiol/spacenode/blob/master/docs/walkthrough-rpi-zero.md#raspberry-pi-zero-wireless)
 
-* Documentation for running Hyperspace hosts on single board computers
+---------------------------------
+
+A collection of documentation for running Hyperspace hosts on single board computers. 
 
 * [x] Raspberry Pi (1GB)
 * [x] Raspberry Pi Zero W (500MB)
