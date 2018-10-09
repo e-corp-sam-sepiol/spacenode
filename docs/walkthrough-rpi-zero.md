@@ -27,6 +27,8 @@
 Seagate Expansion 8TB Desktop External Hard Drive USB 3.0                  | $139.00 USD | https://www.amazon.com/Seagate-Expansion-Desktop-External-STEB8000100/dp/B01HAPGEIE/           |
 | `OPTIONAL:` Zebra Zero Black Ice Heatsink Case by C4Labs |  $6.95 USD |                   https://www.amazon.com/gp/product/B01HP636I4/                  |
 
+**Please use an External Hard Drive in an enclosure with it's own power source, avoid External Hard Drives that are USB powered. This is important for power stability of your Raspberry Pi Zero Wireless.**
+
 ## Installing Raspbian Stretch Lite
 
 `NOTE:` The steps provided below produce a “headless” server... meaning we will not be using a GUI to configure Hyperspace or check to see how things are running. In fact, once the server is set up, you will only interact with it using command line calls over `SSH`. The idea is to have this hosting node be simple, low-power, with optimized memory usage and something that “just runs” in your basement, closet, etc.
