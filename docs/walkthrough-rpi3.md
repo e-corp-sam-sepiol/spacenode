@@ -49,9 +49,9 @@ Download the latest stable version of [Raspbian Stretch Lite](https://www.raspbe
 * [Step 3. Enable SSH by placing a file named "ssh" (without any extension) onto the boot partition of the microSD card](https://hackernoon.com/raspberry-pi-headless-install-462ccabd75d0) 
 
 #### `Optional:` Enable Wireless Connection on first Boot
-Create a new text file named `wpa_supplicant.conf` on the boot partition of the microSD card, this will hold the network information.
+Create a new text file named `wpa_supplicant.conf` on the boot partition of the microSD card, this will hold the network information
 
-Edit the newly created file, adjusting for the name of your country code, network name and network password.
+Edit the newly created file, adjusting for the name of your country code, network name and network password
 
 ```
 country=US
@@ -63,7 +63,7 @@ network={
     psk="NETWORK-PASSWORD"
 }
 ```
-Please safely remove the USB Card Reader / MicroSD card as to ensure the data is not corrupted.
+Please safely remove the USB Card Reader / MicroSD card as to ensure the data is not corrupted
 
 ### Inital Setup of Raspberry Pi
 #### Boot your Raspberry Pi
@@ -75,7 +75,7 @@ Open a web browser page and navigate to your router page and identify the IP add
 `Git download link: https://git-scm.com/downloads`  
 
 #### Log into your Raspberry Pi
-Open `Git Bash` or your default terminal application and enter `SSH`, the `IP` address of your Pi and `-l pi` for it's login name.
+Open `Git Bash` or your default terminal application and enter `SSH`, the `IP` address of your Pi and `-l pi` for it's login name
 ```
 ssh 192.168.1.10 -l pi
 ```
@@ -266,7 +266,7 @@ To                         Action      From
 #### Configure External Hard Drive
 If you have not plugged in your External Hard Drive to power and then into your Raspberry Pi's USB interface, this is the time to do so. Please use an External Hard Drive in an enclosure with it's own power source, avoid External Hard Drives that are USB powered. This is important for power stability of your Raspberry Pi.
 
-In this example, a Seagate Expansion 8TB Desktop External Hard Drive USB 3.0 is being used.
+In this example, a Seagate Expansion 8TB Desktop External Hard Drive USB 3.0 is being used
 ```
 sudo lsblk
 ```
@@ -405,7 +405,7 @@ PARTUUID=cc9730ad-02  /               ext4    defaults,noatime  0       1
 ```
 Go to the bottom of the file and create a new line, and enter this information so it reflects your External Hard Drive's `UUID` rather than the one being used in this guide. `UUID` are unique, if you format the drive the `UUID` will change. 
 
-`NOTE` Do not literally type `[TAB]` between each option, the `[TAB]` represents the act of the user hitting their tab key.
+`NOTE` Do not literally type `[TAB]` between each option, the `[TAB]` represents the act of the user hitting their tab key
 ```
 proc            /proc           proc    defaults          0       0
 PARTUUID=cc9730ad-01  /boot           vfat    defaults          0       2
