@@ -4,9 +4,11 @@
 
 # Spacenode
 
+## [Raspberry Pi Walkthrough](https://github.com/e-corp-sam-sepiol/spacenode/blob/master/docs/walkthrough.md#raspberry-pi-3)
+
 * Documentation for running Hyperspace hosts on single board computers
 
-* [ ] Raspberry Pi (1GB)
+* [x] Raspberry Pi (1GB)
 * [ ] Raspberry Pi Zero W (500MB)
 * [ ] Pine64 Rock64 (4GB)
 * [ ] Pine64 Rock64 (1GB)
