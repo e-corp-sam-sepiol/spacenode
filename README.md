@@ -11,9 +11,7 @@
 * Documentation for running Hyperspace hosts on single board computers
 
 * [x] Raspberry Pi (1GB)
-* [ ] Raspberry Pi Zero W (500MB)
+* [x] Raspberry Pi Zero W (500MB)
 * [ ] Pine64 Rock64 (4GB)
 * [ ] Pine64 Rock64 (1GB)
 * [ ] Orange Pi One (500MB)
-
-
