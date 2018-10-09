@@ -66,7 +66,9 @@ Please safely remove the USB Card Reader / MicroSD card as to ensure the data is
 #### Boot your Raspberry Pi
 Open a web browser page and navigate to your router page and identify the IP address of the freshly powered on Raspberry Pi. In my case the IP address is `192.168.1.10`, please make note of your Raspberry Pi's IP address as we will need to use it to login via `SSH`.
 
-**I like to access my Raspberry Pi Zero Wireless through an `SSH` session on my Windows PC using `Git Bash` which is included in the Windows [download](https://git-scm.com/downloads) of `Git`. Git Bash is my preferred means of using `SSH` on Windows. _This guide assumes the user is using `Git Bash`_**  
+**I like to access my Raspberry Pi through an `SSH` session on my Windows PC using `Git Bash` which is included in the Windows [download](https://git-scm.com/downloads) of `Git`. Git Bash is my preferred means of using `SSH` on Windows.** 
+
+**_This guide assumes the user is using `Git Bash`_**  
 `Git download link: https://git-scm.com/downloads`  
 
 #### Log into your Raspberry Pi Zero Wireless
