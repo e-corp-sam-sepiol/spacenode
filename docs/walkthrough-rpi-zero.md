@@ -24,7 +24,6 @@
 |                          Parts                         |    Price   |                                       Link                                       |
 |:------------------------------------------------------:|:----------:|:--------------------------------------------------------------------------------:|
 |            CanaKit Pi Zero W 8GB Starter Kit           | $29.99 USD |                   https://www.amazon.com/gp/product/B06XJQV162/                  |
-|           Kingston Digital DataTraveler 16GB           |  $7.99 USD | https://www.amazon.com/Kingston-Digital-DataTraveler-DTSE9H-16GBZ/dp/B006W8U2WU/ |
 Seagate Expansion 8TB Desktop External Hard Drive USB 3.0                  | $139.00 USD | https://www.amazon.com/Seagate-Expansion-Desktop-External-STEB8000100/dp/B01HAPGEIE/           |
 | `OPTIONAL:` Zebra Zero Black Ice Heatsink Case by C4Labs |  $6.95 USD |                   https://www.amazon.com/gp/product/B01HP636I4/                  |
 
