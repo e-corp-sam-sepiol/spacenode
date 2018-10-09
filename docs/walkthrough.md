@@ -540,7 +540,7 @@ Generate a new recieve address for your Hyperspace wallet
 
 -----------------------------------------
 
-**Send `2,000` `SPACE` to the address created, this will send `2,000` `SPACE` to your Raspberry Pi's wallet. This is the amount needed to host on Hyperspace. If you are in need of `SPACE` to host, please contact @mark or @Yanlin on the Hyperspace Discord.**  
+**Send `2,000` `SPACE` to the address created, this will send `2,000` `SPACE` to your Raspberry Pi's wallet. This is the amount needed to host on Hyperspace. If you are in need of `SPACE` to host, please contact @Sam Sepiol#3396 @mark#1011 or @Yanlin#8561 on the Hyperspace Discord.**  
 
 **You will need to wait until the `2,000` `SPACE` balance is confirmed on your Raspberry Pi wallet before you can start hosting, the average time it takes to do this is about 10 minutes, however you may find blocks may take longer to find some times.** 
 
@@ -630,7 +630,7 @@ Access the port forwarding section of your router's firmware, create a new port 
 
 Once your port forwarding has been configured you can use tools like [CanYouSeeMe.org](http://canyouseeme.org/) and check for port `5582`. If your port forwarding has been done correctly, the CanYouSeeMe service should return `Success: I can see your service on XX.XXX.XX.XX on port (5582)`.
 
-### OPTIONAL: Setup DynamicDNS (no-ip.com, etc. for hosting)
+### `OPTIONAL:` Setup DynamicDNS (no-ip.com, etc. for hosting)
 Many modern routers contain the ability to setup a Dynamic DNS in the router firmware page, allowing you to resolve your `IP` address to a string of characters. 
 
 <p align="center">
@@ -657,7 +657,7 @@ Estimated Fee:       30 mS / KB
 
 -----------------------------------------
 
-**OPTION 1: Announce with a Dynamic DNS name (from your no-ip.com account, etc)**
+**`OPTION 1:` Announce with a Dynamic DNS name (from your no-ip.com account, etc)**
 ```
 ./hsc host announce ecorphosting.ddns.net:5582
 ```
@@ -670,7 +670,7 @@ To revert this, run:
 
 -----------------------------------------
 
-**OPTION 2: Announce with your `WAN` `IP` address**
+**`OPTION 2:` Announce with your `WAN` `IP` address**
 * Grab your `WAN` `IP` address
 ```
 curl ipinfo.io/ip
@@ -756,9 +756,6 @@ Hyperspace Address
 |            CanaKit Pi Zero W 8GB Starter Kit           | $29.99 USD |                   https://www.amazon.com/gp/product/B06XJQV162/                  |
 |           Kingston Digital DataTraveler 16GB           |  $7.99 USD | https://www.amazon.com/Kingston-Digital-DataTraveler-DTSE9H-16GBZ/dp/B006W8U2WU/ |
 Seagate Expansion 8TB Desktop External Hard Drive USB 3.0                  | $139.00 USD | https://www.amazon.com/Seagate-Expansion-Desktop-External-STEB8000100/dp/B01HAPGEIE/           |
-Seagate Expansion 8TB Desktop External Hard Drive USB 3.0                  | $139.00 USD | https://www.amazon.com/Seagate-Expansion-Desktop-External-STEB8000100/dp/B01HAPGEIE/           |
-Seagate Expansion 8TB Desktop External Hard Drive USB 3.0                  | $139.00 USD | https://www.amazon.com/Seagate-Expansion-Desktop-External-STEB8000100/dp/B01HAPGEIE/           |
-Seagate Expansion 8TB Desktop External Hard Drive USB 3.0                  | $139.00 USD | https://www.amazon.com/Seagate-Expansion-Desktop-External-STEB8000100/dp/B01HAPGEIE/           |
 | OPTIONAL: Zebra Zero Black Ice Heatsink Case by C4Labs |  $6.95 USD |                   https://www.amazon.com/gp/product/B01HP636I4/                  |
 
 -----------------------------------------
@@ -767,5 +764,5 @@ Seagate Expansion 8TB Desktop External Hard Drive USB 3.0                  | $13
 
 -----------------------------------------
 # Resources
-SlickDeals - Hard Drive Deals  
+SlickDeals - Hard Drive Deals 
 `https://slickdeals.net/forums/filtered/?f=9&intagid[]=300&icid=filtered_user`
