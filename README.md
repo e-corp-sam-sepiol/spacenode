@@ -17,3 +17,9 @@ A collection of documentation for running Hyperspace hosts on single board compu
 * [ ] Pine64 Rock64 (4GB)
 * [ ] Pine64 Rock64 (1GB)
 * [ ] Orange Pi One (500MB)
+
+---------------------------------
+
+### Resources
+* Information on hosts | [spacehub.siahub.info](https://spacehub.siahub.info/)
+* Hyperspace Stats | [hyperstats.info](https://hyperstats.info/index)
