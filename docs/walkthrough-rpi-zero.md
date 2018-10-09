@@ -643,7 +643,7 @@ Storage Folders:
 
 ### You're hosting on Hyperspace!
 
-When you want to close your `SSH` session with your Pi, simply type `exit` and hit `enter`. This will ensure the backgrounded `hsd` process is not halted on disconnect. 
+**When you want to close your `SSH` session with your Pi, simply type `exit` and hit `enter`. This will ensure the backgrounded `hsd` process is not halted on disconnect.**  
 
 ### Donations
 If you found my guide helpful and want to donate...  
