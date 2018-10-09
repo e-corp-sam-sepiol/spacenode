@@ -60,7 +60,7 @@ network={
     psk="NETWORK-PASSWORD"
 }
 ```
-Please safely remove the USB Card Reader / MicroSD card as to ensure the data is not corrupted.
+Please safely remove the USB Card Reader / MicroSD card as to ensure the data is not corrupted
 
 ### Inital Setup of Raspberry Pi Zero Wireless
 #### Boot your Raspberry Pi
