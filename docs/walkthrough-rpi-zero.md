@@ -659,6 +659,18 @@ Hyperspace Address
 -----------------------------------------
 # Updating Hyperspace
 
+Change directories to the Hyperspace repository found in your `$GOPATH/src` folder. The compiled binaries are stored in the `$GOPATH/bin` folder.
+```
+cd ; cd go/src/github.com/HyperspaceApp/Hyperspace/
+```
+Run `git pull origin master` to pull the latest changes.
+```
+git pull origin master
+```
+Use `make release` to build the new binaries if new changes are pulled.
+```
+make release
+```
 
 -----------------------------------------
 # Resources
