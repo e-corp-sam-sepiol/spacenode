@@ -1,3 +1,3 @@
 #!/bin/bash
-# script to grab WAN IP address
+# grab your public IP address
 curl ipinfo.io/ip
