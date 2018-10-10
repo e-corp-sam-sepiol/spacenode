@@ -185,9 +185,8 @@ You can find the address of your router by using the following command
 ```
 ip route | grep default
 ```
-```
-default via 192.168.1.1 dev eth0 src 192.168.1.10 metric 202
-```
+`default via 192.168.1.1 dev eth0 src 192.168.1.10 metric 202`  
+
 #### Wireless Interface
 ```
 sudo nano /etc/network/interfaces
