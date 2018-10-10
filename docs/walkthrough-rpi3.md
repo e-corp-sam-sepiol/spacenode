@@ -229,7 +229,7 @@ sudo ufw default allow outgoing
 ```
 Grab your `IP` range
 ```
-ip -o -f inet addr show | awk '/scope global/{sub(/[^.]+\//,"0/",$4);print $4}' | awk 'NR==1{print $1}'
+ip -o -f inet addr show | awk '/scope global/{sub(/[^.]+\//,"0/",$4);print $4}'
 ```
 This firewall rule prevents any host outside of your `LAN` to `SSH` into your Raspberry Pi. Replace `192.168.1.0/24` with the `IP` range given to you by the command above. `192.168.1.0/24` happens to be my `IP` range, yours may be different. 
 ```
