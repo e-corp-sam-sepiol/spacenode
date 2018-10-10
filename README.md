@@ -23,3 +23,16 @@ A collection of documentation for running Hyperspace hosts on single board compu
 ### Resources
 * Information on hosts | [spacehub.siahub.info](https://spacehub.siahub.info/)
 * Hyperspace Stats | [hyperstats.info](https://hyperstats.info/index)
+
+---------------------------------
+
+### Donations
+If you found my guide(s) helpful and want to donate...  
+<p align="center">
+  <img src="https://i.imgur.com/UVOuTsy.png">
+</p>
+
+Hyperspace Address   
+```
+543a9afc652bf892655db2f622505ab92be2a5ce251646367964c9ef4fdaf24c240fffb5f4e1
+```
