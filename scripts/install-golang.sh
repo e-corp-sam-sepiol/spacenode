@@ -93,25 +93,15 @@ setEnvironment() {
         echo "export GOROOT=/usr/local/go" >> $profile
     fi
     if [ -z "`grep 'export\sGOPATH' $profile`" ];then
-        echo "export GOPATH=/data/go" >> $profile
+        echo "export GOPATH=/home/pi/go" >> $profile
     fi
     if [ -z "`grep 'export\sGOBIN' $profile`" ];then
-        echo "export GOBIN=/data/go/bin" >> $profile
+        echo "export GOBIN=/home/pi/go/bin" >> $profile
     fi   
     if [ -z "`grep '\$GOROOT/bin:\$GOBIN' $profile`" ];then
         echo "export PATH=\$GOROOT/bin:\$GOBIN:\$PATH" >> $profile
     fi  
 }
-
-# Printf version info
-clear
-printf "
-###############################################################
-###  Golang Install
-###  Author Skiychan<dev@skiy.net>
-###  Link https://www.skiy.net 
-###############################################################
-\n"
 
 # identify platform based on uname output
 checkRoot
