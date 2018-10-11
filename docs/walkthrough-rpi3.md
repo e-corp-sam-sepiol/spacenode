@@ -625,6 +625,12 @@ Storage Folders:
 ### Port Forward port `5582` on your Raspberry Pi 
 Access your router's web page through a web browser, the `IP` address is commonly similar to `192.168.1.1` for most home routers
 
+You can find the address of your router by using the following command
+```
+ip route | grep default
+```
+`default via 192.168.1.1 dev eth0 src 192.168.1.10 metric 202`  
+
 Access the port forwarding section of your router's firmware, create a new port forwarding rule for the `IP` address that belongs to your Raspberry Pi which you set as `static` before. Make sure port `5582 TCP/UDP` is forwarded, saved and applied. 
 
 Once your port forwarding has been configured you can use tools like [CanYouSeeMe.org](http://canyouseeme.org/) and check for port `5582`. If your port forwarding has been done correctly, the CanYouSeeMe service should return `Success: I can see your service on XX.XXX.XX.XX on port (5582)`.
