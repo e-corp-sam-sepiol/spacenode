@@ -4,7 +4,7 @@
 </p>
 
 #### Why a Raspberry Pi Zero Wireless?
->Raspberry Pi Zero W is an inexpensive computing hardware platform that generates little heat, draws little power, and can run silently 24 hours a day without having to think about it. [1]
+>Raspberry Pi Zero W is an inexpensive computing hardware platform that generates little heat, draws little power, and can run silently 24 hours a day without having to think about it.
 
 #### Raspberry Pi Zero Wireless Specifications
 * 1GHz, single-core CPU
