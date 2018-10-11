@@ -5,7 +5,7 @@
 
 
 #### Why a Rock64 Media Board?
->Rock64 Media Board is an inexpensive computing hardware platform that generates little heat, draws little power, and can run silently 24 hours a day without having to think about it. [1]
+>Rock64 Media Board is an inexpensive computing hardware platform that generates little heat, draws little power, and can run silently 24 hours a day without having to think about it. 
 
 #### Rock64 Media Board Specifications
 * RK3328 64bit Quad Core A53 CPU
