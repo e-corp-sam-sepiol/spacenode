@@ -4,7 +4,7 @@
 </p>
 
 #### Why a Raspberry Pi?
->Raspberry Pi is an inexpensive computing hardware platform that generates little heat, draws little power, and can run silently 24 hours a day without having to think about it. [1]
+>Raspberry Pi is an inexpensive computing hardware platform that generates little heat, draws little power, and can run silently 24 hours a day without having to think about it. 
 
 #### Raspberry Pi 3 B+ Specifications
 * Broadcom BCM2837B0, Cortex-A53 (ARMv8) 64-bit SoC @ 1.4GHz
