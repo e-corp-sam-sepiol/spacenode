@@ -28,6 +28,7 @@ A collection of documentation for running Hyperspace hosts on single board compu
 ---------------------------------
 
 ### Resources
+* Hyperspace Guide | [hyperspace.guide](https://hyperspace.guide/)
 * Information on hosts | [spacehub.siahub.info](https://spacehub.siahub.info/)
 * Hyperspace Stats | [hyperstats.info](https://hyperstats.info/index)
 
