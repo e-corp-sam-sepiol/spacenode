@@ -683,3 +683,14 @@ make release
 
 -----------------------------------------
 # Resources
+
+### [Hyperspace Guide / FAQ / App](https://hyperspace.guide/faq/hyperspace_app)
+* [Should I back anything up to make sure I don't lose my wallet or other important data in Hyperspace?](https://hyperspace.guide/faq/hyperspace_app#back_up_data)
+* [Where are Hyperspace's internal data files stored?](https://hyperspace.guide/faq/hyperspace_app#internal_data_files)
+### [Hyperspace Guide / FAQ / Hosting](https://hyperspace.guide/faq/hosting)
+* [What if I can't stay online as a host? What if it's not my fault (hardware failure, power outage, etc)?](https://hyperspace.guide/faq/hosting#uptime_responsibility)
+* [Can I keep my wallet unlocked or unlock it automatically? Why would I want to do that?](https://hyperspace.guide/faq/hosting#auto_start_and_wallet_auto_unlock)
+* [Hyperspace says "Host Unreachable" a few minutes after it starts.](https://hyperspace.guide/faq/hosting#host_unreachable)
+* [What sort of income can I expect when hosting?](https://hyperspace.guide/faq/hosting#income)
+* [Why do I see a bunch of small (or sometimes large) transactions taken from my wallet while hosting?](https://hyperspace.guide/faq/hosting#small_transactions)
+### [Hyperspace Guide / FAQ / Renting](https://hyperspace.guide/faq/renting)
