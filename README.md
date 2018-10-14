@@ -22,6 +22,8 @@ A collection of documentation for running Hyperspace hosts on single board compu
 * [ ] Add wallet unlocking `env` variable option to guide(s)
 * [ ] Add `consensus` database sideloading option to guide(s)
 * [ ] Add `hsd` start on reboot
+* [ ] Pine64 Rock64 Media Board walkthrough
+* [ ] Orange Pi One walkthrough
 
 ---------------------------------
 
