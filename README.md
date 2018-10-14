@@ -4,6 +4,8 @@
 
 # Spacenode
 
+### [Spacenode Wiki: Quick read on how Hyperspace works](https://github.com/e-corp-sam-sepiol/spacenode/wiki)
+
 ### [Raspberry Pi Walkthrough](https://github.com/e-corp-sam-sepiol/spacenode/blob/master/docs/walkthrough-rpi3.md#raspberry-pi-3)  
 
 ### [Raspberry Pi Zero Wireless Walkthrough](https://github.com/e-corp-sam-sepiol/spacenode/blob/master/docs/walkthrough-rpi-zero.md#raspberry-pi-zero-wireless)
