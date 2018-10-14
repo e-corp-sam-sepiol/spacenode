@@ -22,7 +22,7 @@ A collection of documentation for running Hyperspace hosts on single board compu
 * [ ] Pine64 Rock64 (1GB)
 * [ ] Orange Pi One (500MB)
 
-### `TO-DO LIST`
+## `TO-DO LIST`
 * [ ] Add wallet unlocking `env` variable option to guide(s)
 * [ ] Add `consensus` database sideloading option to guide(s)
 * [ ] Add `hsd` start on reboot
@@ -31,14 +31,15 @@ A collection of documentation for running Hyperspace hosts on single board compu
 
 ---------------------------------
 
-### Resources
+## Resources
 * Hyperspace Guide | [hyperspace.guide](https://hyperspace.guide/)
 * Information on hosts | [spacehub.siahub.info](https://spacehub.siahub.info/)
 * Hyperspace Stats | [hyperstats.info](https://hyperstats.info/index)
+* SiaWiki.Tech | [siawiki.tech](https://siawiki.tech/index)
 
 ---------------------------------
 
-### Donations
+## Donations
 If you found my guide(s) helpful and want to donate...  
 <p align="center">
   <img src="https://i.imgur.com/UVOuTsy.png">
