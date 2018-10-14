@@ -728,7 +728,7 @@ If you found my guide helpful and want to donate...
 
 Hyperspace Address   
 ```
-543a9afc652bf892655db2f622505ab92be2a5ce251646367964c9ef4fdaf24c240fffb5f4e1
+SPACE: 543a9afc652bf892655db2f622505ab92be2a5ce251646367964c9ef4fdaf24c240fffb5f4e1
 ```
 
 -----------------------------------------
