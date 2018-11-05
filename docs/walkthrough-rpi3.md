@@ -642,6 +642,18 @@ Many modern routers contain the ability to setup a Dynamic DNS in the router fir
   <img src="https://i.imgur.com/tn2rLS3.png">
 </p>
 
+-----------------------------------------
+
+### Enable Hyperspace Wallet Auto-Unlock
+To enable auto-unlocking of your Hyperspace wallet you must set the `environment` variable `HYPERSPACE_WALLET_PASSWORD` for the current shell, and then ensure the `.bashrc` file also sets the `enviornment` variable for future shell sessions.  
+
+```
+export HYPERSPACE_WALLET_PASSWORD=yoursecurehyperspacewalletpassword
+echo 'export HYPERSPACE_WALLET_PASSWORD=yoursecurehyperspacewalletpassword' >> /home/pi/.bashrc
+```
+
+-----------------------------------------
+
 ### Start Hosting
 To begin hosting you need to announce your host to the network, which it will then begin forming contracts with renters and automatically locking collateral and managing contracts in the background.
 
