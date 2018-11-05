@@ -683,7 +683,6 @@ Enable the Hyperspace daemon service
 sudo systemctl enable hs_daemon.service
 ```
 
-
 ### Enable Hyperspace Wallet Auto-Unlock
 To enable auto-unlocking of your Hyperspace wallet you must set the `environment` variable `HYPERSPACE_WALLET_PASSWORD` for the current shell, and then ensure the `.bashrc` file also sets the `enviornment` variable for future shell sessions.  
 
