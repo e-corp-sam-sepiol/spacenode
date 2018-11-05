@@ -468,13 +468,13 @@ Change directories to the `$GOPATH/.../Hyperspace` folder
 ```
 cd go/src/github.com/HyperspaceApp/Hyperspace/
 ```
-Pull the latest changes to the code
+Pull the latest code for full nodes
 ```
-git pull origin master
+git pull origin 0.2.2
 ```
 ```
 From https://github.com/HyperspaceApp/Hyperspace
- * branch                master     -> FETCH_HEAD
+ * branch                0.2.2     -> FETCH_HEAD
 Already up-to-date.
 ```
 Build the new binaries
