@@ -752,7 +752,7 @@ cd ; cd go/src/github.com/HyperspaceApp/Hyperspace/
 ```
 Run `git pull origin master` to pull the latest changes.
 ```
-git pull origin master
+git pull origin 0.2.2
 ```
 Use `make release` to build the new binaries if new changes are pulled.
 ```
