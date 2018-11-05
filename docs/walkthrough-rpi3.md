@@ -655,6 +655,7 @@ Description=Hyperspace Daemon Service
 After=network.target
 
 [Service]
+Type=simple
 ExecStart=/home/pi/go/bin/hsd
 ExecStop=/home/pi/go/bin/hsc stop
 ExecReload=/home/pi/go/bin/hsc stop && /home/pi/go/bin/hsd
