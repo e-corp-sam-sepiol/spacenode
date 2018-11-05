@@ -644,46 +644,6 @@ Many modern routers contain the ability to setup a Dynamic DNS in the router fir
 
 -----------------------------------------
 
-### Setup Hyperspace Daemon Service
-To ensure that the Hyperspace Daemon is always running in the background we will create a `hs_daemon.service` file in `/lib/systemd/system/`  
-
-Create the `.service` file  
-`sudo nano /lib/systemd/system/hs_daemon.service`  
-```
-[Unit]
-Description=Hyperspace Daemon Service
-After=network.target
-
-[Service]
-Type=simple
-ExecStart=/home/pi/go/bin/hsd
-ExecStop=/home/pi/go/bin/hsc stop
-ExecReload=/home/pi/go/bin/hsc stop && /home/pi/go/bin/hsd
-WorkingDirectory=/home/pi/go/bin/
-Restart=always
-
-
-[Install]
-WantedBy=multi-user.target
-Alias=hsd.service
-```
-`CTRL+X to save`  
-
-Set the file permissions so that only the owner of the file can write, but others can read  
-```
-sudo chmod 644 /lib/systemd/system/hs_daemon.service
-```
-
-Perform a soft-reload of system daemons
-```
-sudo systemctl daemon-reload
-```
-
-Enable the Hyperspace daemon service
-```
-sudo systemctl enable hs_daemon.service
-```
-
 ### Enable Hyperspace Wallet Auto-Unlock
 To enable auto-unlocking of your Hyperspace wallet you must set the `environment` variable `HYPERSPACE_WALLET_PASSWORD` for the current shell, and then ensure the `.bashrc` file also sets the `enviornment` variable for future shell sessions.  
 
