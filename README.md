@@ -23,7 +23,7 @@ A collection of documentation for running Hyperspace hosts on single board compu
 * [ ] Orange Pi One (500MB)
 
 ## `TO-DO LIST`
-* [ ] Add wallet unlocking `env` variable option to guide(s)
+* [x] Add wallet unlocking `env` variable option to guide(s)
 * [ ] Add `consensus` database sideloading option to guide(s)
 * [ ] Add `hsd` start on reboot
 * [ ] Pine64 Rock64 Media Board walkthrough
