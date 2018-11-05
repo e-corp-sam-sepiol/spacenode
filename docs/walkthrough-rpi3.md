@@ -750,7 +750,7 @@ Change directories to the Hyperspace repository found in your `$GOPATH/src` fold
 ```
 cd ; cd go/src/github.com/HyperspaceApp/Hyperspace/
 ```
-Run `git pull origin master` to pull the latest changes.
+Run `git pull origin 0.2.2` to pull the latest full node code.
 ```
 git pull origin 0.2.2
 ```
