@@ -586,6 +586,23 @@ export HYPERSPACE_WALLET_PASSWORD=yoursecurehyperspacewalletpassword
 echo 'export HYPERSPACE_WALLET_PASSWORD=yoursecurehyperspacewalletpassword' >> /home/pi/.bashrc
 ```
 
+### Configure `crontab` for `hsd` launch on reboot, and wallet auto-unlocking
+
+This `cronjob` sources the users `.profile` which contains saved `env` variables, changes directory to where the `hsd` binary resides, executes `hsd` and backgrounds the process. The wallet finds the `HYPERSPACE_WALLET_PASSWORD` `env` variable and automatically unlocks the wallet. 
+
+__Edit your `crontab` file, add the bottom line to your `crontab` file.__
+
+`crontab -u pi -e`  
+```
+@reboot $HOME/.profile; cd /home/pi/go/bin/ ; ./hsd &
+```
+
+__If you are running multiple hosts, you will have to specifiy a secondary port number to access the host from.__  
+__`--host-addr :5583` replace with your desired port.__
+```
+@reboot $HOME/.profile; cd /home/pi/go/bin/ ; ./hsd --host-addr :5583 &
+```
+
 -----------------------------------------
 
 ### Start Hosting
