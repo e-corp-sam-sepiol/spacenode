@@ -232,7 +232,7 @@ sudo mkfs.ext4 /dev/sda1 -L storage
 
 First we must remove the two partitions from this drive, and then create a partition we can use for hosting
 ```
-sudo mkfs.ext4 /dev/sda -l untitled
+sudo mkfs.ext4 /dev/sda -L untitled
 mke2fs 1.43.4 (31-Jan-2017)
 Found a gpt partition table in /dev/sda
 Proceed anyway? (y,N) y
