@@ -329,7 +329,7 @@ Set the default unit to TB
 ```
 Create a partition that matches the size of your External Hard Drive
 ```
-(parted) mkpart primary 0.00TB 7.30TB
+(parted) mkpart primary 0% 100%
 ```
 Print the current partitions
 ```
