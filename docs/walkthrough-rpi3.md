@@ -428,74 +428,31 @@ Now modify the permissions of the `storage` folder to be accessable by every use
 sudo chmod 777 storage
 ```
 
-### Installing `golang 1.10`
-Download `golang` for `ARM` CPU's 
+### Installing `Docker`
+Download and install docker, to wrap up the Hyperspace install within a docker container for ease of maintenance and future updates.
 ```
-curl -L -O https://dl.google.com/go/go1.10.3.linux-armv6l.tar.gz
+curl -fsSL get.docker.com -o get-docker.sh && sh get-docker.sh
 ```
-Decompress the archive into the `/usr/local` folder
+### Run the hyperspace docker container
 ```
-sudo tar -C /usr/local -xzf go1.10.3.linux-armv6l.tar.gz
+docker run -d --name=hyperspace \
+-v /home/pi/storage:/hs \
+-p 5581:5581 -p 5582:5582 --restart=always afdy/hyperspace-pi
 ```
-Create a directory for your `$GOPATH`
-```
-mkdir go
-```
-Export environment variables to `.bashrc` and the current shell
-```
-echo 'export PATH=$PATH:/usr/local/go/bin' >> /home/pi/.bashrc
-```
-```
-echo 'export GOPATH=$HOME/go' >> /home/pi/.bashrc
-```
-```
-export GOPATH=$HOME/go  
-```
-```
-export PATH=$PATH:/usr/local/go/bin
-```
-Check the version of `golang` installed
-```
-go version
-```
-`go version go1.10.3 linux/arm`  
+* Your external disk /home/pi/storage, gets mounted as /hs in the docker container, and we forward ports 5581 and 5582 from the host (your pi) to inside the new docker container.
 
-### Download and compile Hyperspace from source
-```
-go get -u github.com/HyperspaceApp/Hyperspace/...
-```
-Change directories to the `$GOPATH/.../Hyperspace` folder
-```
-cd go/src/github.com/HyperspaceApp/Hyperspace/
-```
-Pull the latest code for full nodes
-```
-git pull origin 0.2.2
-```
-```
-From https://github.com/HyperspaceApp/Hyperspace
- * branch                0.2.2     -> FETCH_HEAD
-Already up-to-date.
-```
-Build the new binaries
-```
-make release
-```
-Go back to your home directory, and then into your `$GOPATH/bin` to initalize Hyperspace
-```
-cd ; cd go/bin/
-```
+* Hyperspace should start up automatically, and docker should handle this automatic restart when you reboot your pi.
 
-### Starting Hyperspace
-`NOTE` If you intend on running multiple hosts, you will need to use the `--host-addr :5583`... `:5584`, `:5885`, etc. Hyperspace's hosting port defaults to `:5882`. If this is your first host, you don't need to worry.
+* To auto-unlock your wallet, add the parameter -e HYPERSPACE_WALLET_PASSWORD=MyPassword to the above.
 
-Start Hyperspace Daemon and send to the background
+To see the STDOUT logs from the hyperspace daemon, use
 ```
-~/go/bin $ ./hsd &
+docker logs hyperspace
 ```
+You should see it proceeding through these steps:
 ```
-Hyperspace Daemon v0.2.0
-Git Revision 76f89464b
+Hyperspace Daemon v0.2.3
+Git Revision b121f350f
 Loading...
 (0/6) Loading hsd...
 (1/6) Loading gateway...
@@ -506,35 +463,47 @@ Loading...
 (6/6) Loading renter...
 Finished loading in 1.7456555150000002 seconds
 ```
-`[ENTER]` to get your command prompt back
 
 It's important to note that the blockchain will take some time to sync, I recommend allowing the Pi some time to sync before attempting to scan the blockchain for `tx`'s when you load a wallet. The blockchain size is about `~300MB` on `10/5/2018`. 
 
+### Upgrading hyperspace
+A note on upgrading, upgrading is a simple process - simply remove the docker container and image, and install it again!  Anything you do within the docker container should be disposable.
+```
+# Stop the container running your service
+docker stop hyperspace
+
+# Delete the image
+docker rm afdy/hyperspace-pi
+```
+
+Now re-execute the [Run the hyperspace docker container](#run-the-hyperspace-docker-container) section.
+
+
 ### Configure Hyperspace
 
-When you are ready to create a new wallet for your Raspberry Pi make sure that you are in your `$GOPATH/bin/`
+When you are ready to create a new wallet for your Raspberry Pi, enter your docker container shell with
 ```
-cd ; cd go/bin/
+docker exec -it hyperspace bash
 ```
 Initalize a new wallet for Hyperspace
 ```
-./hsc wallet init
+hsc wallet init
 ```
 `PLEASE TAKE NOTE OF THE SEED GIVEN TO YOU, THIS WILL ENABLE YOU TO RESTORE THIS WALLET IF YOU NEED TO`  
 
 Next unlock the newly created wallet. **Use your seed as the password to unlock the wallet for the first time.**
 ```
-./hsc wallet unlock
+hsc wallet unlock
 ```
 
 Change the wallet password
 ```
-./hsc wallet change-password
+hsc wallet change-password
 ```
 
 Generate a new recieve address for your Hyperspace wallet
 ```
-./hsc wallet new-address
+hsc wallet new-address
 ```
 
 -----------------------------------------
@@ -553,24 +522,24 @@ You have the option to configure your hosting options shown below
 
 #### View Hyperspace Hosting Configuration Help
 ```
-./hsc host config -h
+hsc host config -h
 ```
 #### Example Commands
 Set the download bandwidth price to `200` `SPACE` per/TB
 ```
-./hsc host config mindownloadbandwidthprice 200S
+hsc host config mindownloadbandwidthprice 200S
 ```
 Set the upload bandwidth price to `200` `SPACE` per/TB
 ```
-./hsc host config minuploadbandwidthprice 200S
+hsc host config minuploadbandwidthprice 200S
 ```
 Set the storage price to `100 SPACE`  
 ```
-./hsc host config minstorageprice 100S
+hsc host config minstorageprice 100S
 ```
 Set the contract price to `150 mS`
 ```
-./hsc host config mincontractprice 150mS
+hsc host config mincontractprice 150mS
 ```
 
 **Once you have configured your Hyperspace hosting options and are ready to move on to dedicating storage space for hosting...**
@@ -591,15 +560,16 @@ tmpfs           464M     0  464M   0% /sys/fs/cgroup
 tmpfs            93M     0   93M   0% /run/user/1000
 /dev/sda1       6.6T   89M  6.3T   1% /home/pi/storage
 ```
-Add the location `/home/pi/storage` to Hyperspace hosting with an allocated size that reflects the size available on your External Hard Drive
+Add the location `/hs/host-storage` to Hyperspace hosting with an allocated size that reflects the size available on your External Hard Drive
 ```
-./hsc host folder add /home/pi/storage 6.3TB
+mkdir /hs/host-storage
+hsc host folder add /hs/host-storage 6.3TB
 ```
-`Added folder /home/pi/storage`  
+`Added folder /hs/host-storage`  
 
 Check your hosting settings
 ```
-./hsc host
+hsc host
 ```
 ```
 Host info:
@@ -619,7 +589,7 @@ Warning:
 
 Storage Folders:
     Used    Capacity     % Used    Path
-    0 B     6.2999 TB    0.00      /home/pi/storage
+    0 B     6.2999 TB    0.00      /hs/host-storage
 ```
 
 ### Port Forward port `5582` on your Raspberry Pi 
@@ -641,42 +611,20 @@ Many modern routers contain the ability to setup a Dynamic DNS in the router fir
 <p align="center">
   <img src="https://i.imgur.com/tn2rLS3.png">
 </p>
-
 -----------------------------------------
+### Multiple hosts
+Running multiple hosts on the same physical machine isn't recommended, as renters will only select 1 host each /24 IP subnet, any other hosts would be ignored.
 
-### Enable Hyperspace Wallet Auto-Unlock
-To enable auto-unlocking of your Hyperspace wallet you must set the `environment` variable `HYPERSPACE_WALLET_PASSWORD` for the current shell, and then ensure the `.bashrc` file also sets the `enviornment` variable for future shell sessions.  
-
+If you really want to run multiple hosts, simply modify the '''docker run''' command earlier to map a new port to the new host:
 ```
-export HYPERSPACE_WALLET_PASSWORD=yoursecurehyperspacewalletpassword
-echo 'export HYPERSPACE_WALLET_PASSWORD=yoursecurehyperspacewalletpassword' >> /home/pi/.bashrc
+--name hyperspace2 -v 5583:5582
 ```
-
-### Configure `crontab` for `hsd` launch on reboot, and wallet auto-unlocking
-
-This `cronjob` sources the users `.profile` which contains saved `env` variables, changes directory to where the `hsd` binary resides, executes `hsd` and backgrounds the process. The wallet finds the `HYPERSPACE_WALLET_PASSWORD` `env` variable and automatically unlocks the wallet. 
-
-__Edit your `crontab` file, add the bottom line to your `crontab` file.__
-
-`crontab -u pi -e`  
-```
-@reboot $HOME/.profile; cd /home/pi/go/bin/ ; ./hsd &
-```
-
-__If you are running multiple hosts, you will have to specifiy a secondary port number to access the host from.__  
-__`--host-addr :5583` replace with your desired port.__
-```
-@reboot $HOME/.profile; cd /home/pi/go/bin/ ; ./hsd --host-addr :5583 &
-```
-
------------------------------------------
-
 ### Start Hosting
 To begin hosting you need to announce your host to the network, which it will then begin forming contracts with renters and automatically locking collateral and managing contracts in the background.
 
 Before announcing your host to the network, you have to ensure your wallet is `unlocked` and holds a balance of `2,000` `SPACE` or more to host.
 ```
-./hsc wallet
+hsc wallet
 ```
 ```
 Wallet status:
@@ -693,7 +641,7 @@ Estimated Fee:       30 mS / KB
 
 **`OPTION 1:` Announce with a Dynamic DNS name (from your no-ip.com account, etc)**
 ```
-./hsc host announce ecorphosting.ddns.net:5582
+hsc host announce ecorphosting.ddns.net:5582
 ```
 ```
 Host announcement submitted to network.
@@ -712,7 +660,7 @@ curl ipinfo.io/ip
 ```
 * Announce using your `IP` address displayed from the `curl` command
 ```
-./hsc host announce XX.XXX.XX.XX:5582
+hsc host announce XX.XXX.XX.XX:5582
 ```
 ```
 Host announcement submitted to network.
@@ -726,7 +674,7 @@ To revert this, run:
 #### Check hosting status
 This command should reflect a working host after about a half an hour if you have properly port forwarded, using canyouseeme.org to confirm the port has been opened. 
 ```
-./hsc host
+hsc host
 ```
 ```
 Host info:
@@ -743,7 +691,7 @@ Host info:
 
 Storage Folders:
     Used    Capacity     % Used    Path
-    0 B     6.2999 TB    0.00      /home/pi/storage
+    0 B     6.2999 TB    0.00      /hs/host-storage
 ```
 
 ### You're hosting on Hyperspace!
@@ -760,23 +708,6 @@ Hyperspace Address
 ```
 SPACE: 543a9afc652bf892655db2f622505ab92be2a5ce251646367964c9ef4fdaf24c240fffb5f4e1
 ```
-
------------------------------------------
-# Updating Hyperspace
-
-Change directories to the Hyperspace repository found in your `$GOPATH/src` folder. The compiled binaries are stored in the `$GOPATH/bin` folder.
-```
-cd ; cd go/src/github.com/HyperspaceApp/Hyperspace/
-```
-Run `git pull origin 0.2.2` to pull the latest full node code.
-```
-git pull origin 0.2.2
-```
-Use `make release` to build the new binaries if new changes are pulled.
-```
-make release
-```
-
 -----------------------------------------
 # Resources
 
